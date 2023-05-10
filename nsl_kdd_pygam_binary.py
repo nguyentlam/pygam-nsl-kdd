@@ -41,9 +41,9 @@ categorical_x_columns = np.array([1, 2, 3])
 numberic_x_columns = np.delete(x_columns, categorical_x_columns)
 print('numberic_x_columns', numberic_x_columns)
 x_ct = ColumnTransformer(transformers = [("onehot", OneHotEncoder(handle_unknown='ignore', sparse_output=False), categorical_x_columns),
-                                         ('normalize', Normalizer(norm='l2'), numberic_x_columns)], remainder = 'passthrough')
+                                         ('normalize', Normalizer(norm='max'), numberic_x_columns)], remainder = 'passthrough')
 
-x_ct.fit(np.concatenate((X_train_raw, X_test_raw), axis = 0))
+x_ct.fit(X_train_raw)
 X_train = x_ct.transform(X_train_raw)
 X_train = X_train.astype('float')
 print('X_train[0:3]', X_train[0:3])

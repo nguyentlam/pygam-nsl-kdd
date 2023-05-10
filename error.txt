@@ -1,0 +1,35 @@
+['normal']
+y_train[0:2]=== [0. 0.]
+['neptune']
+y_test[0:2]=== [1. 1.]
+/rhome/tuannt/.conda/envs/lam-ml/lib/python3.11/site-packages/pygam/utils.py:80: UserWarning: Could not import Scikit-Sparse or Suite-Sparse.
+This will slow down optimization for models with monotonicity/convexity penalties and many splines.
+See installation instructions for installing Scikit-Sparse and Suite-Sparse via Conda.
+  warnings.warn(msg)
+/rhome/tuannt/.conda/envs/lam-ml/lib/python3.11/site-packages/pygam/links.py:151: RuntimeWarning: divide by zero encountered in divide
+  return dist.levels / (mu * (dist.levels - mu))
+/rhome/tuannt/.conda/envs/lam-ml/lib/python3.11/site-packages/pygam/pygam.py:629: RuntimeWarning: invalid value encountered in multiply
+  self.link.gradient(mu, self.distribution) ** 2
+/rhome/tuannt/.conda/envs/lam-ml/lib/python3.11/site-packages/pygam/pygam.py:629: RuntimeWarning: overflow encountered in square
+  self.link.gradient(mu, self.distribution) ** 2
+/rhome/tuannt/.conda/envs/lam-ml/lib/python3.11/site-packages/pygam/links.py:135: RuntimeWarning: overflow encountered in exp
+  elp = np.exp(lp)
+/rhome/tuannt/.conda/envs/lam-ml/lib/python3.11/site-packages/pygam/links.py:136: RuntimeWarning: invalid value encountered in divide
+  return dist.levels * elp / (elp + 1)
+/rhome/tuannt/.conda/envs/lam-ml/lib/python3.11/site-packages/pygam/links.py:151: RuntimeWarning: overflow encountered in divide
+  return dist.levels / (mu * (dist.levels - mu))
+Traceback (most recent call last):
+  File "/rhome/tuannt/lam/pygam-nsl-kdd/nsl_kdd_pygam_binary.py", line 88, in <module>
+    clf.fit(X_train, y_train.ravel())
+  File "/rhome/tuannt/.conda/envs/lam-ml/lib/python3.11/site-packages/pygam/pygam.py", line 915, in fit
+    self._pirls(X, y, weights)
+  File "/rhome/tuannt/.conda/envs/lam-ml/lib/python3.11/site-packages/pygam/pygam.py", line 797, in _pirls
+    U, d, Vt = np.linalg.svd(np.vstack([R, E]))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<__array_function__ internals>", line 200, in svd
+  File "/rhome/tuannt/.conda/envs/lam-ml/lib/python3.11/site-packages/numpy/linalg/linalg.py", line 1642, in svd
+    u, s, vh = gufunc(a, signature=signature, extobj=extobj)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/rhome/tuannt/.conda/envs/lam-ml/lib/python3.11/site-packages/numpy/linalg/linalg.py", line 98, in _raise_linalgerror_svd_nonconvergence
+    raise LinAlgError("SVD did not converge")
+numpy.linalg.LinAlgError: SVD did not converge
