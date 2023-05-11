@@ -11,6 +11,8 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 import numpy as np
 from pygam import LogisticGAM, s, f
+import matplotlib.pyplot as plt
+import os
 
 def parseNumber(s):
     try:
@@ -68,15 +70,45 @@ y_test = preprocess_label(y_test_raw)
 print('y_test[0:2]===', y_test[0:2])
 
 # Train a LogisticGAM classifier on the training set
-clf = LogisticGAM(
-    terms='auto'
+gam = LogisticGAM(
+    # terms='auto'
+    s(0) + s(1) + s(2) + s(3) + s(4) + s(5) + s(6) + s(7) + s(8) + s(9) 
+    + s(10) + s(11) + s(12) + s(13) + s(14) + s(15) + s(16) + s(17) + s(18) + s(19) 
+    + s(20) + s(21) + s(22) + s(23) + s(24) + s(25) + s(26) + s(27) + s(28) + s(29)
+    + s(30) + s(31) + s(32) + s(33) + s(34) + s(35) + s(36) + s(37) + s(38) + s(39)
+    + s(40) + s(41) + s(42) + s(43) + s(44) + s(45) + s(46) + s(47) + s(48) + s(49)
+    + s(50) + s(51) + s(52) + s(53) + s(54) + s(55) + s(56) + s(57) + s(58) + s(59)
+    + s(60) + s(61) + s(62) + s(63) + s(64) + s(65) + s(66) + s(67) + s(68) + s(69)
+    + s(70) + s(71) + s(72) + s(73) + s(74) + s(75) + s(76) + s(77) + s(78) + s(79)
+    + s(80) + s(81) + s(82) + s(83) + s(84) + s(85) + s(86) + s(87) + s(88) + s(89)
+    + s(90) + s(91) + s(92) + s(93) + s(94) + s(95) + s(96) + s(97) + s(98) + s(99)
+    + s(100) + s(101) + s(102) + s(103) + s(104) + s(105) + s(106) + s(107) + s(108) + s(109)
+    + s(110) + s(111) + s(112) + s(113) + s(114) + s(115) + s(116) + s(117) + s(118) + s(119)
+    + s(120) + s(121)
 )
 
-clf.fit(X_train, y_train.ravel())
+#gam.fit(X_train, y_train.ravel())
+gam.gridsearch(X_train, y_train.ravel())
 
 # Use the trained classifier to predict the classes of the test set
-y_pred = clf.predict(X_test)
+y_pred = gam.predict(X_test)
 
 # Evaluate the accuracy of the classifier
 accuracy = accuracy_score(y_test, y_pred)
 print("Accuracy:", accuracy)
+
+gam.summary()
+
+fig, axs = plt.subplots(1, 122)
+titles = np.array(list(range(122)))
+
+for i, ax in enumerate(axs):
+    XX = gam.generate_X_grid(term=i)
+    pdep, confi = gam.partial_dependence(term=i, width=.95)
+
+    ax.plot(XX[:, i], pdep)
+    ax.plot(XX[:, i], confi, c='r', ls='--')
+    ax.set_title(titles[i])
+
+#plt.show()
+plt.savefig(os.path.basename(__file__).removesuffix(".py") + '.png')
