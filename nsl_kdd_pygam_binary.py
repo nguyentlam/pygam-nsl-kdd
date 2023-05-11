@@ -100,15 +100,40 @@ print("Accuracy:", accuracy)
 gam.summary()
 
 fig, axs = plt.subplots(1, 122)
-titles = np.array(list(range(122)))
+# titles = np.array(list(range(122)))
 
-for i, ax in enumerate(axs):
-    XX = gam.generate_X_grid(term=i)
-    pdep, confi = gam.partial_dependence(term=i, width=.95)
+# for i, ax in enumerate(axs):
+#     XX = gam.generate_X_grid(term=i)
+#     pdep, confi = gam.partial_dependence(term=i, width=.95)
 
-    ax.plot(XX[:, i], pdep)
-    ax.plot(XX[:, i], confi, c='r', ls='--')
-    ax.set_title(titles[i])
+#     ax.plot(XX[:, i], pdep)
+#     ax.plot(XX[:, i], confi, c='r', ls='--')
+#     ax.set_title(titles[i])
 
-#plt.show()
-plt.savefig(os.path.basename(__file__).removesuffix(".py") + '.png')
+# #plt.show()
+# plt.savefig(os.path.basename(__file__).removesuffix(".py") + '.png')
+
+# Create a 25x5 grid of subplots with larger subplots
+fig, axes = plt.subplots(nrows=25, ncols=5, figsize=(50, 100))
+
+# Loop through each subplot and plot the corresponding dataset
+for i in range(25):
+    for j in range(5):
+        if i*5+j+1 <= 122:
+            ax = axes[i, j]
+            idx = i*5 + j
+            XX = gam.generate_X_grid(term=idx)
+            pdep, confi = gam.partial_dependence(term=idx, width=.95)
+
+            ax.plot(XX[:, i], pdep)
+            ax.plot(XX[:, i], confi, c='r', ls='--')
+            ax.set_title(f"Subplot {idx+1}", fontsize=12)
+
+# Adjust the spacing between subplots
+plt.subplots_adjust(left=0.05, right=0.95, bottom=0.05, top=0.95, wspace=0.3, hspace=0.4)
+
+# Save the figure to a PDF file
+plt.savefig("my_subplots.pdf", bbox_inches="tight")
+
+# Show the figure (optional)
+plt.show()
