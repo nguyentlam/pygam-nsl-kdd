@@ -92,7 +92,7 @@ gam = LogisticGAM(
 gam.fit(X_train_raw, y_train.ravel())
 
 # Use the trained classifier to predict the classes of the test set
-y_pred = gam.predict(X_test)
+y_pred = gam.predict(X_test_raw)
 
 # Evaluate the accuracy of the classifier
 accuracy = accuracy_score(y_test, y_pred)
