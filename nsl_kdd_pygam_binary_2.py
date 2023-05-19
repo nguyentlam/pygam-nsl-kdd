@@ -89,14 +89,15 @@ gam = LogisticGAM(
 
 #gam.fit(X_train, y_train.ravel())
 #gam.gridsearch(X_train, y_train.ravel())
-gam.fit(X_train_raw, y_train.ravel())
+#gam.fit(X_train_raw, y_train.ravel())
+gam.gridsearch(X_train, y_train.ravel(), lam=[0.2, 0.6, 0.8, 1])
 
 # Use the trained classifier to predict the classes of the test set
-y_pred = gam.predict(X_test_raw)
+#y_pred = gam.predict(X_test_raw)
 
 # Evaluate the accuracy of the classifier
-accuracy = accuracy_score(y_test, y_pred)
-print("Accuracy:", accuracy)
+#accuracy = accuracy_score(y_test, y_pred)
+#print("Accuracy:", accuracy)
 
 gam.summary()
 
@@ -114,13 +115,13 @@ gam.summary()
 # #plt.show()
 # plt.savefig(os.path.basename(__file__).removesuffix(".py") + '.png')
 
-# Create a 25x5 grid of subplots with larger subplots
-fig, axes = plt.subplots(nrows=25, ncols=5, figsize=(50, 100))
+# Create a 9x5 grid of subplots with larger subplots
+fig, axes = plt.subplots(nrows=9, ncols=5, figsize=(50, 100))
 
 # Loop through each subplot and plot the corresponding dataset
-for i in range(25):
+for i in range(9):
     for j in range(5):
-        if i*5+j+1 <= 122:
+        if i*5+j+1 <= 41:
             ax = axes[i, j]
             idx = i*5 + j
             XX = gam.generate_X_grid(term=idx)
